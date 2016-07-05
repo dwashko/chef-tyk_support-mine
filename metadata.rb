@@ -13,3 +13,5 @@ supports 'centos'
 
 source_url 'https://github.com/GannettDigital/chef-tyk_support'
 issues_url 'https://github.com/GannettDigital/chef-tyk_support/issues'
+
+depends 'datadog'

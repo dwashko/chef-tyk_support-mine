@@ -14,8 +14,16 @@ suites:
   - name: default
     run_list:
       - recipe[gd-test-helper::default]
+      - recipe[datadog]
       - recipe[tyk_support::default]
+      - recipe[tyk_support::tyk-redis-monitor]
     attributes:
+      datadog:
+        redis-tyk:
+          instances:
+            - host: 'localhost'
+              port: '6379'
+              tags: ['redis-tyk-test']
     chef_client:
       config:
         log_level: ":debug"
