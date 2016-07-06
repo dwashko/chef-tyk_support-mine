@@ -24,22 +24,12 @@ suites:
       - recipe[tyk_support::default]
       - recipe[tyk_support::redis-tyk-monitor]
     attributes:
-      redisio:
-        servers:
-          -
-            name: 'redis-tyk'
-            port: 6379
       datadog:
         api_key: 'somekey'
         application_key: 'alsonotnil'
         redis-tyk:
           instances:
-            - host: 'localhost'
-              port: '6379'
-              tags: ['redis-tyk-test']
-        redisdb:
-          instances:
-            - host: 'localhost'
+            - server: 'localhost'
               port: '6379'
               tags: ['redis-tyk-test']
     chef_client:
