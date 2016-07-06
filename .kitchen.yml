@@ -7,19 +7,37 @@ provisioner:
   log_level: auto
 
 platforms:
-  - name: gannett/gci-centos-67
-  - name: gannett/gci-centos-72
+  - name: centos-6.7
+    driver:
+      box: centos-67
+      box_url: https://deploy.gmti.gbahn.net/Images/CentOS6/vagrant/centos67-cloud-1.0.0.box
+  - name: centos-7.1
+    driver:
+      box: centos-71
+      box_url: https://deploy.gmti.gbahn.net/Images/centos7/vagrant/centos71-cloud-1.0.0.box
 
 suites:
-  - name: default
+  - name: redis-tyk-monitor 
     run_list:
       - recipe[gd-test-helper::default]
       - recipe[datadog]
       - recipe[tyk_support::default]
-      - recipe[tyk_support::tyk-redis-monitor]
+      - recipe[tyk_support::redis-tyk-monitor]
     attributes:
+      redisio:
+        servers:
+          -
+            name: 'redis-tyk'
+            port: 6379
       datadog:
+        api_key: 'somekey'
+        application_key: 'alsonotnil'
         redis-tyk:
+          instances:
+            - host: 'localhost'
+              port: '6379'
+              tags: ['redis-tyk-test']
+        redisdb:
           instances:
             - host: 'localhost'
               port: '6379'

@@ -1,0 +1,33 @@
+instances:
+  <% if node['datadog']['redis-tyk']['unix_socket_path'] -%>
+    - unix_socket_path: <%= node['datadog']['redis-tyk']['unix_socket_path'] %>
+  <% else -%>
+    - host: <%= node['datadog']['redis-tyk']['server'] %>
+      port: <%= node['datadog']['redis-tyk']['port'] || 6379 %>
+  <% end -%>
+    <% if node['datadog']['redis-tyk']['password'] -%>
+    password: <%= node['datadog']['redis-tyk']['password'] %>
+    <% end -%>
+    <% if node['datadog']['redis-tyk']['db'] -%>
+    db: <%= node['datadog']['redis-tyk']['db'] %>
+    <% end -%>
+    <% if node['datadog']['redis-tyk']['tags'] -%>
+    tags:
+      <% node['datadog']['redis-tyk']['tags'].each do |t| -%>
+      - <%= t %>
+      <% end -%>
+    <% end -%>
+    <% if node['datadog']['redis-tyk']['keys'] -%>
+        <% if node['datadog']['redis-tyk']['keys']['warn_on_missing_keys'] and node['datadog']['redis-tyk']['warn_on_missing_keys']-%>
+    warn_on_missing_keys: True
+        <% end -%>
+    keys:
+      <% node['datadog']['redis-tyk']['keys'].each do |k| -%>
+      - <%= k %>
+      <% end -%>
+    <% end -%>
+    <% if node['datadog']['redis-tyk']['slowlog-max-len'] -%>slowlog-max-len: <%= node['datadog']['redis-tyk']['slowlog-max-len'] %><% end -%>
+    <% if node['datadog']['redis-tyk']['socket_timeout'] -%>socket_timeout: <%= node['datadog']['redis-tyk']['socket_timeout'] %><% end -%>
+
+init_config:
+# nothing to add here

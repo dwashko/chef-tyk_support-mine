@@ -4,4 +4,5 @@ metadata
 
 group :integration do
   cookbook 'gd-test-helper'
+  cookbook 'redisio'
 end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: tyk_support
-# Recipe:: redis-tyk-monitor 
+# Recipe:: redis-tyk-monitor
 #
 # Copyright (c) 2016 Gannett Co., Inc, All Rights Reserved.
 
@@ -20,9 +20,10 @@ include_recipe 'datadog::dd-agent'
 
 datadog_monitor 'redis-tyk' do
   instances node['datadog']['redis-tyk']['instances']
+  cookbook 'tyk_support'
 end
 
-template '/opt/datadog-agent/agent/checks.d/redis-tyk' do
+template '/opt/datadog-agent/agent/checks.d/redis-tyk.py' do
   cookbook 'tyk_support'
   action :create
   owner 'dd-agent'
